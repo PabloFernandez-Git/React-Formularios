@@ -1,20 +1,34 @@
-import React, { Component } from 'react'
+import React, { Component, createRef } from 'react'
 import './form.css'
 
 class Form extends Component {
-    constructor(props) {
+
+    /* constructor(props) {
         super(props);
         this.state = {};
+    } */
+
+    name = createRef()
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(this.name.current.value)
     }
+
     render() {
         return (
-            <form className="form" >
+            <form className="form" onSubmit={this.handleSubmit} >
                 <h1>Forms</h1>
                 <div className="form__field">
                     <label className="form__label" htmlFor="name">Name</label>
-                    <input className="form__input" type="text" id="name" />
+                    <input 
+                        className="form__input" 
+                        id="name" 
+                        ref={this.name} 
+                        type="text" 
+                    />
                 </div>
-                <div className="form__field">
+                {/* <div className="form__field">
                     <label className="form__label form__label--radio" htmlFor="man">Man</label>
                     <input className="form__input" type="radio" id="man" name="gender" />
 
@@ -34,7 +48,7 @@ class Form extends Component {
                 <div className="form__field">
                     <label className="form__label" htmlFor="terms">Terms and conditions</label>
                     <input className="form__input" type="checkbox" id="other" name="gender" />
-                </div>
+                </div> */}
                 <input className="form__submit" type="submit" value="send" />
             </form >
         );
@@ -43,3 +57,34 @@ class Form extends Component {
 
 export default Form;
 
+
+/*
+Controlando input con refs
+
+No es la forma mas habitual, pero es valida y funciona.
+La forma mas habitual es controlar el formulario con el estado (state).
+
+
+Crear una referencia para el 'name'
+
+name = createRef()
+
+
+Evitar que la pagina se recarge al clickear en submit
+
+<form className="form" onSubmit={this.handleSubmit}></form>
+
+handleSubmit = (e) => {
+    e.preventDefault()
+}
+
+Obtener el valor del formulario
+
+handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(this.name.current.value)
+}
+
+
+
+*/
