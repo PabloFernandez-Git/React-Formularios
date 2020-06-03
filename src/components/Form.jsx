@@ -4,7 +4,8 @@ import './form.css'
 class Form extends Component {
 
     state = {
-        name: ''
+        name: '',
+        gender: ''
     }
     
 
@@ -14,7 +15,9 @@ class Form extends Component {
     }
 
     handleChange = (e) => {
-        this.setState({name: e.target.value})
+        this.setState({
+            [e.target.name]: e.target.value, 
+        })
     }
 
     render() {
@@ -27,21 +30,43 @@ class Form extends Component {
                         <input 
                             className="form__input" 
                             id="name" 
-                            onChange={this.handleChange} 
+                            name="name" 
+                            onChange={this.handleChange}
                             type="text" 
                         />
                     </div>
-                    {/* <div className="form__field">
+                    <div className="form__field">
                         <label className="form__label form__label--radio" htmlFor="man">Man</label>
-                        <input className="form__input" type="radio" id="man" name="gender" />
+                        <input 
+                            className="form__input" 
+                            id="man" 
+                            name="gender"
+                            onChange={this.handleChange}
+                            type="radio" 
+                            value="man" 
+                        />
 
                         <label className="form__label form__label--radio" htmlFor="woman">Woman</label>
-                        <input className="form__input" type="radio" id="woman" name="gender" />
+                        <input 
+                            className="form__input" 
+                            id="woman" 
+                            name="gender"
+                            onChange={this.handleChange}
+                            type="radio" 
+                            value="woman" 
+                        />
 
                         <label className="form__label form__label--radio" htmlFor="other">Other</label>
-                        <input className="form__input" type="radio" id="other" name="gender" />
+                        <input 
+                            className="form__input" 
+                            id="other" 
+                            name="gender"
+                            onChange={this.handleChange}
+                            type="radio" 
+                            value="other" 
+                        />
                     </div>
-                    <div className="form__field">
+                    {/* <div className="form__field">
                         <label className="form__label" htmlFor="languaje">Language</label>
                         <select name="language" id="language">
                             <option value="es">Spanish</option>
@@ -64,23 +89,25 @@ export default Form;
 
 
 /*
-Controlando input con state
+Controlando radio button con state
 
-El state vive en el virtual DOM, las refs viven en el DOM.
-El objetivo de trabajar con React es acceder al DOM lo menos posible para ahorrar recursos y conseguir hacer la aplicacion lo mas optima posible.
-Como el state vive en el virtual DOM no hay ningun problema con borrar y modificar el estado porque se realiza sobre el virtual DOM pero si esto mismo lo hicieramos con las refs ralentizariamos nuestra aplicacion. 
+Como actualizar el estado cuando tenemos varios elementos (inputs)? (Ya sean type text/radio)
 
+handleChange = (e) => {
+    this.setState({
+        [e.target.name]: e.target.value, 
+    })
+}
 
-Usando el state
+De esta forma cuando escribimos en el nombre se actualiza el nombre y cuando marcamos el genero se marca el genero.
 
-La propiedad que tenemos que usar en el input es onChange={this.handleChange} porque cuando esto cambie vamos a querer manejar este evento con handleChange.
+De esta forma podemos trabajar con la cantidad de campos que necesitemos:
 
+[e.target.name]: e.target.value,
 
+Usando esa linea de codigo se actualiza cada uno de los valores que necesitemos usar.
 
-Dato
-En el HTML no podemos renderizar objetos.
-Para renderizar objetos debemos usar 'JSON.stringify' para ver el objeto a modo de string.
+El 'name' del formulario debe ser el mismo que el del 'state' 
 
-<p>{JSON.stringify(this.state)}</p>
 
 */
