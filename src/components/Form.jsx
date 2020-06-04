@@ -5,7 +5,9 @@ class Form extends Component {
 
     state = {
         name: '',
-        gender: ''
+        gender: 'man',
+        language: 'es',
+        terms: false
     }
     
 
@@ -17,6 +19,12 @@ class Form extends Component {
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value, 
+        })
+    }
+
+    handleTerms = () => {
+        this.setState({
+            terms: !this.state.terms
         })
     }
 
@@ -37,7 +45,8 @@ class Form extends Component {
                     </div>
                     <div className="form__field">
                         <label className="form__label form__label--radio" htmlFor="man">Man</label>
-                        <input 
+                        <input
+                            defaultChecked
                             className="form__input" 
                             id="man" 
                             name="gender"
@@ -66,18 +75,30 @@ class Form extends Component {
                             value="other" 
                         />
                     </div>
-                    {/* <div className="form__field">
+                    <div className="form__field">
                         <label className="form__label" htmlFor="languaje">Language</label>
-                        <select name="language" id="language">
+                        <select name="language" id="language" onChange={this.handleChange}>
                             <option value="es">Spanish</option>
                             <option value="en">English</option>
                         </select>
                     </div>
                     <div className="form__field">
                         <label className="form__label" htmlFor="terms">Terms and conditions</label>
-                        <input className="form__input" type="checkbox" id="other" name="gender" />
-                    </div> */}
-                    <input className="form__submit" type="submit" value="send" />
+                        <input
+                            className="form__input" 
+                            id="other" 
+                            name="gender" 
+                            onChange={this.handleTerms} 
+                            type="checkbox" 
+                        />
+                    </div>
+                    <input
+                        className="form__submit" 
+                        disabled={!this.state.terms} 
+                        type="submit" 
+                        value="send" 
+                    />
+                    
                     <p>{JSON.stringify(this.state)}</p>
                 </form >
             </Fragment>
@@ -89,25 +110,16 @@ export default Form;
 
 
 /*
-Controlando radio button con state
+Controlando select y checkbox con state
 
-Como actualizar el estado cuando tenemos varios elementos (inputs)? (Ya sean type text/radio)
+defaultChecked
+Permite marcar una opcion por default en un radio button.
+(La propiedad checked no funciona correctamente)
+Recordar tambien pasar la misma propiedad en el state.
 
-handleChange = (e) => {
-    this.setState({
-        [e.target.name]: e.target.value, 
-    })
-}
 
-De esta forma cuando escribimos en el nombre se actualiza el nombre y cuando marcamos el genero se marca el genero.
 
-De esta forma podemos trabajar con la cantidad de campos que necesitemos:
 
-[e.target.name]: e.target.value,
-
-Usando esa linea de codigo se actualiza cada uno de los valores que necesitemos usar.
-
-El 'name' del formulario debe ser el mismo que el del 'state' 
 
 
 */
